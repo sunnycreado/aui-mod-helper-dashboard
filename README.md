@@ -2,6 +2,9 @@
 
 A professional dashboard interface for managing and monitoring moderation logs. Built with Flask and modern web technologies to provide a secure and efficient way to handle moderation data.
 
+## Live Demo
+[AUI Mod Helper Dashboard](https://aui-mod-helper-dashboard-production.up.railway.app/)
+
 ## Features
 
 - **Secure Authentication**
@@ -28,6 +31,7 @@ A professional dashboard interface for managing and monitoring moderation logs. 
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Data Processing:** Pandas
 - **Authentication:** Session-based with environment variables
+- **Deployment:** Railway.app
 
 ## Installation
 
@@ -48,14 +52,35 @@ A professional dashboard interface for managing and monitoring moderation logs. 
     pip install -r requirements.txt
     ```
 
-4. Configure environment variables
-    
+4. Configure environment variables in `.env` file:
+    ```
+    DATABASE_URL=your_database_api_from_neon_tech
+    SECRET_KEY=your_secret_key
+    ADMIN_USERNAME=your_admin_username
+    ADMIN_PASSWORD=your_admin_password
+    ```
+
+    > **Database Setup:**
+    > - Get your free PostgreSQL database from [Neon Tech](https://neon.tech/)
+    > - Copy the connection string from your Neon dashboard
+    > - Paste it as your DATABASE_URL in the .env file
 
 5. Run the application
     ```bash
     python app.py
     ```
 
+## Deployment
+
+The application is deployed on Railway.app. Visit the live version at:
+[https://aui-mod-helper-dashboard-production.up.railway.app/](https://aui-mod-helper-dashboard-production.up.railway.app/)
+
+### Railway Deployment Steps
+1. Fork this repository
+2. Create a new project on [Railway.app](https://railway.app/)
+3. Connect your GitHub repository
+4. Add environment variables in Railway dashboard
+5. Deploy!
 
 ## Security
 
