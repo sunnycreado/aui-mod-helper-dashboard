@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DB Manager</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-content">
+            <div class="nav-brand">
+                <svg class="db-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M12 3C7.58 3 4 4.79 4 7V17C4 19.21 7.58 21 12 21S20 19.21 20 17V7C20 4.79 16.42 3 12 3Z"/>
+                </svg>
+                <span>DB Manager</span>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn-sign-out">Sign Out</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard">
+        <!-- Alerts -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <span class="alert-icon">✓</span>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Actions Grid -->
+        <div class="actions-grid">
+            <div class="action-card">
+                <div class="action-header">
+                    <span class="action-icon">+</span>
+                    <h2>Create Table</h2>
+                </div>
+                <p>Create a new reports table. This will drop any existing table.</p>
+                <form method="POST" action="{{ url_for('handle_create_table') }}" 
+                      onsubmit="return confirmAction('create')">
+                    <button type="submit" class="btn btn-primary">Create Table</button>
+                </form>
+            </div>
+
+            <div class="action-card">
+                <div class="action-header">
+                    <span class="action-icon">⟲</span>
+                    <h2>Truncate Table</h2>
+                </div>
+                <p>Remove all data while keeping the table structure.</p>
+                <form method="POST" action="{{ url_for('handle_truncate_table') }}" 
+                      onsubmit="return confirmAction('truncate')">
+                    <button type="submit" class="btn btn-warning">Truncate Table</button>
+                </form>
+            </div>
+
+            <div class="action-card">
+                <div class="action-header">
+                    <span class="action-icon">×</span>
+                    <h2>Delete Table</h2>
+                </div>
+                <p>Delete the table completely. A backup will be created.</p>
+                <form method="POST" action="{{ url_for('handle_delete_table') }}" 
+                      onsubmit="return confirmAction('delete')">
+                    <button type="submit" class="btn btn-danger">Delete Table</button>
+                </form>
+            </div>
+
+            <div class="action-card">
+                <div class="action-header">
+                    <span class="action-icon">↓</span>
+                    <h2>Download Logs</h2>
+                </div>
+                <p>Export all database records to an Excel file.</p>
+                <a href="{{ url_for('download_logs') }}" class="btn btn-success">Download Logs</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html> 
