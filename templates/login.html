@@ -6,6 +6,7 @@
     <title>Login - DB Manager</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="login-container">
@@ -38,7 +39,43 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
             </form>
+            <div class="info-button">
+                <button type="button" onclick="showInfo()" class="btn btn-info" aria-label="Information">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
         </div>
     </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About AUI Mod Helper</h2>
+            
+            <div class="info-section">
+                <p><strong>Version:</strong> 2.0.0</p>
+                <p><strong>Created by:</strong> Spooky</p>
+                <p><strong>Discord UID:</strong> 573023459907469324</p>
+                <p><strong>Discord Tag:</strong> spooky6942</p>
+                <p><strong>Contact:</strong> For any issues, please contact via Discord</p>
+                
+                <div class="links-section">
+                    <p><strong>Report Helper Tool:</strong> 
+                        <a href="https://aui-mod-report-helper-v1.vercel.app/" target="_blank">
+                            AUI Mod Report Helper
+                        </a>
+                    </p>
+                    <p><strong>GitHub:</strong> 
+                        <a href="https://github.com/sunnycreado" target="_blank">
+                            @sunnycreado
+                        </a>
+                    </p>
+                </div>
+                
+                <p class="copyright">© 2024 AUI Mod Helper.</p>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html> 
