@@ -2,19 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "api/index.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app.py",
-      "headers": {
-        "cache-control": "no-cache, no-store, must-revalidate",
-        "pragma": "no-cache",
-        "expires": "0"
-      }
+      "dest": "api/index.py"
     }
   ]
 } 
