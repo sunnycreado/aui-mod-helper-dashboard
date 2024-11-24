@@ -3,87 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUI Mod Helper - Logs Dashboard</title>
+    <title>AUI Mod Helper - Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="nav-content">
+    <div class="dashboard-container">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
             <div class="nav-brand">
-                <svg class="db-icon" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M12 3C7.58 3 4 4.79 4 7V17C4 19.21 7.58 21 12 21S20 19.21 20 17V7C20 4.79 16.42 3 12 3Z"/>
-                </svg>
-                <span>AUI Mod Helper</span>
+                <h1>AUI Mod Helper</h1>
+                <p class="subtitle">Moderation Logs Dashboard</p>
             </div>
-            <a href="{{ url_for('logout') }}" class="btn-sign-out">Sign Out</a>
-        </div>
-    </nav>
+            <div class="nav-actions">
+                <button type="button" onclick="showInfo()" class="btn-info" aria-label="Information">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+                <form action="{{ url_for('logout') }}" method="get">
+                    <button type="submit" class="sign-out-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </button>
+                </form>
+            </div>
+        </nav>
 
-    <!-- Main Content -->
-    <main class="dashboard">
-        <!-- Alerts -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        <span class="alert-icon">✓</span>
-                        {{ message }}
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Create Table Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-plus-circle"></i> Create Table</h2>
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <!-- Actions Grid -->
-        <div class="actions-grid">
-            <div class="action-card">
-                <div class="action-header">
-                    <span class="action-icon">+</span>
-                    <h2>Create Table</h2>
+                    <div class="card-content">
+                        <p>Create a new reports table. This will drop any existing table.</p>
+                        <form action="{{ url_for('handle_create_table') }}" method="post">
+                            <button type="submit" class="btn btn-primary">Create Table</button>
+                        </form>
+                    </div>
                 </div>
-                <p>Create a new reports table. This will drop any existing table.</p>
-                <form method="POST" action="{{ url_for('handle_create_table') }}" 
-                      onsubmit="return confirmAction('create')">
-                    <button type="submit" class="btn btn-primary">Create Table</button>
-                </form>
+
+                <!-- Truncate Table Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-eraser"></i> Truncate Table</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Remove all data while keeping the table structure.</p>
+                        <form action="{{ url_for('handle_truncate_table') }}" method="post">
+                            <button type="submit" class="btn btn-warning">Truncate Table</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Delete Table Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-trash-alt"></i> Delete Table</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Delete the table completely. A backup will be created.</p>
+                        <form action="{{ url_for('handle_delete_table') }}" method="post">
+                            <button type="submit" class="btn btn-danger">Delete Table</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Download Logs Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-download"></i> Download Logs</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Export all database records to an Excel file.</p>
+                        <a href="{{ url_for('download_logs') }}" class="btn btn-success">Download Logs</a>
+                    </div>
+                </div>
             </div>
+        </main>
+    </div>
 
-            <div class="action-card">
-                <div class="action-header">
-                    <span class="action-icon">⟲</span>
-                    <h2>Truncate Table</h2>
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About AUI Mod Helper</h2>
+            <div class="info-section">
+                <p><strong>Version:</strong> <span>2.0.0</span></p>
+                <p><strong>Created by:</strong> <span>Spooky</span></p>
+                <p><strong>Discord UID:</strong> <span>573023459907469324</span></p>
+                <p><strong>Discord Tag:</strong> <span>spooky6942</span></p>
+                <p><strong>Contact:</strong> <span>For any issues, please contact via Discord</span></p>
+                
+                <div class="links-section">
+                    <p><strong>Report Helper Tool:</strong> 
+                        <a href="https://aui-mod-report-helper-v1.vercel.app/" target="_blank">
+                            AUI Mod Report Helper
+                        </a>
+                    </p>
+                    <p><strong>GitHub:</strong> 
+                        <a href="https://github.com/sunnycreado" target="_blank">
+                            @sunnycreado
+                        </a>
+                    </p>
                 </div>
-                <p>Remove all data while keeping the table structure.</p>
-                <form method="POST" action="{{ url_for('handle_truncate_table') }}" 
-                      onsubmit="return confirmAction('truncate')">
-                    <button type="submit" class="btn btn-warning">Truncate Table</button>
-                </form>
-            </div>
-
-            <div class="action-card">
-                <div class="action-header">
-                    <span class="action-icon">×</span>
-                    <h2>Delete Table</h2>
-                </div>
-                <p>Delete the table completely. A backup will be created.</p>
-                <form method="POST" action="{{ url_for('handle_delete_table') }}" 
-                      onsubmit="return confirmAction('delete')">
-                    <button type="submit" class="btn btn-danger">Delete Table</button>
-                </form>
-            </div>
-
-            <div class="action-card">
-                <div class="action-header">
-                    <span class="action-icon">↓</span>
-                    <h2>Download Logs</h2>
-                </div>
-                <p>Export all database records to an Excel file.</p>
-                <a href="{{ url_for('download_logs') }}" class="btn btn-success">Download Logs</a>
+                
+                <p class="copyright">© 2024 AUI Mod Helper.</p>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html> 
