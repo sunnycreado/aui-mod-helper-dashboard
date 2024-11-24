@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": false,
+  "buildCommand": null,
   "devCommand": "python app.py",
   "outputDirectory": ".",
   "functions": {
