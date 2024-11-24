@@ -29,7 +29,7 @@ body {
 
 .login-box {
     background: white;
-    padding: 2.5rem;
+    padding: 3rem;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
@@ -39,10 +39,12 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .db-icon {
+    width: 40px;
+    height: 40px;
     color: var(--primary-color);
 }
 
@@ -301,4 +303,42 @@ h1 {
     }
 }
 
-/* Update JavaScript to handle display properly */ 
+/* Update JavaScript to handle display properly */
+
+/* Add these new styles */
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.subtitle {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-top: 4px;
+    opacity: 0.8;
+}
+
+.welcome-text {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-text h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-text p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.btn-primary {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+ 
