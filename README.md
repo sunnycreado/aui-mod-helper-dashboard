@@ -3,7 +3,7 @@
 A professional dashboard interface for managing and monitoring moderation logs. Built with Flask and modern web technologies to provide a secure and efficient way to handle moderation data.
 
 ## Live Demo
-[AUI Mod Helper Dashboard](https://aui-mod-helper-dashboard-production.up.railway.app/)
+[AUI Mod Helper Dashboard](https://aui-mod-helper-dashboard.vercel.app/)
 
 ## Features
 
@@ -31,7 +31,7 @@ A professional dashboard interface for managing and monitoring moderation logs. 
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Data Processing:** Pandas
 - **Authentication:** Session-based with environment variables
-- **Deployment:** Railway.app
+- **Deployment:** Vercel
 
 ## Installation
 
@@ -72,14 +72,16 @@ A professional dashboard interface for managing and monitoring moderation logs. 
 
 ## Deployment
 
-The application is deployed on Railway.app. Visit the live version at:
-[https://aui-mod-helper-dashboard-production.up.railway.app/](https://aui-mod-helper-dashboard-production.up.railway.app/)
+The application is deployed on Vercel. To deploy your own instance:
 
-### Railway Deployment Steps
 1. Fork this repository
-2. Create a new project on [Railway.app](https://railway.app/)
+2. Create a new project on [Vercel](https://vercel.com)
 3. Connect your GitHub repository
-4. Add environment variables in Railway dashboard
+4. Add your environment variables in the Vercel dashboard:
+   - DATABASE_URL
+   - SECRET_KEY
+   - ADMIN_USERNAME
+   - ADMIN_PASSWORD
 5. Deploy!
 
 ## Security
