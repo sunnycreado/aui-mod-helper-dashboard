@@ -9,9 +9,6 @@ import io
 
 load_dotenv()
 
-if not os.path.exists('backups'):
-    os.makedirs('backups')
-
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
@@ -72,19 +69,10 @@ def handle_truncate_table():
 @login_required
 def handle_delete_table():
     try:
-        # First get backup
+        # Get backup without saving to filesystem
         df = get_all_logs()
-        if not df.empty:
-            # Ensure backups directory exists
-            if not os.path.exists('backups'):
-                os.makedirs('backups')
-            # Save to Excel
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            backup_filename = f'reports_backup_{timestamp}.xlsx'
-            df.to_excel(f'backups/{backup_filename}', index=False)
-        
         delete_reports_table()
-        flash('Table deleted successfully! Backup created.', 'success')
+        flash('Table deleted successfully!', 'success')
     except Exception as e:
         flash(f'Error deleting table: {e}', 'error')
     return redirect(url_for('dashboard'))
