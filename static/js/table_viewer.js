@@ -1,6 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if mobile view
+    if (window.innerWidth <= 768) {
+        document.querySelector('.dashboard-container').classList.add('mobile-view');
+    }
+
+    // Handle resize events
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            document.querySelector('.dashboard-container').classList.add('mobile-view');
+        } else {
+            document.querySelector('.dashboard-container').classList.remove('mobile-view');
+        }
+    });
+
+    // Add data-label attributes to cells for mobile view
     const table = document.querySelector('.data-table');
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
     
+    table.querySelectorAll('tbody tr').forEach(row => {
+        row.querySelectorAll('td').forEach((cell, index) => {
+            cell.setAttribute('data-label', headers[index]);
+        });
+    });
+
     // Row selection
     table.querySelectorAll('tbody tr').forEach(row => {
         row.addEventListener('click', function(e) {
