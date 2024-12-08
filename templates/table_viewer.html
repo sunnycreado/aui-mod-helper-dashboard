@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUI Mod Helper - Table Viewer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table_viewer.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <h1>AUI Mod Helper</h1>
+                <p class="subtitle">Table Viewer</p>
+            </div>
+            <div class="nav-actions">
+                <a href="{{ url_for('dashboard') }}" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+        </nav>
+
+        <main class="table-content">
+            <!-- Search Bar -->
+            <form class="search-bar" action="{{ url_for('view_table') }}" method="get">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" name="search" value="{{ search }}" placeholder="Search records...">
+                </div>
+                <button type="submit" class="btn">Search</button>
+                <a href="{{ url_for('download_logs') }}" class="btn">
+                    <i class="fas fa-download"></i>
+                    Download All
+                </a>
+            </form>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Offence</th>
+                            <th>Action</th>
+                            <th>Reported By</th>
+                            <th>Advice</th>
+                            <th>Note</th>
+                            <th>Proof</th>
+                            <th>RM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>{{ record.user_id }}</td>
+                            <td>{{ record.username }}</td>
+                            <td>{{ record.offence }}</td>
+                            <td>{{ record.action }}</td>
+                            <td>{{ record.reported_by }}</td>
+                            <td>{{ record.advice }}</td>
+                            <td>{{ record.note }}</td>
+                            <td class="proof-cell">
+                                {% if record.proof and ('http://' in record.proof or 'https://' in record.proof) %}
+                                    <a href="{{ record.proof }}" target="_blank" class="proof-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        View Proof
+                                    </a>
+                                {% else %}
+                                    {{ record.proof if record.proof else 'None' }}
+                                {% endif %}
+                            </td>
+                            <td>{{ record.rm }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    Showing {{ records|length }} of {{ total_records }} records
+                </div>
+                <div class="pagination-controls">
+                    {% if current_page > 1 %}
+                    <a href="{{ url_for('view_table', page=current_page-1, search=search) }}" class="btn-page">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    {% endif %}
+                    
+                    <span class="page-info">Page {{ current_page }} of {{ total_pages }}</span>
+                    
+                    {% if current_page < total_pages %}
+                    <a href="{{ url_for('view_table', page=current_page+1, search=search) }}" class="btn-page">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/table_viewer.js') }}"></script>
+</body>
+</html> 

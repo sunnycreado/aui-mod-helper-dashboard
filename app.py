@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file, session
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file, session, jsonify
 from functools import wraps
 import os
 from dotenv import load_dotenv
 import pandas as pd
-from database_operations import create_reports_table, delete_reports_table, get_all_logs, truncate_table
+from database_operations import (
+    create_reports_table, 
+    delete_reports_table, 
+    get_all_logs, 
+    truncate_table,
+    get_paginated_logs
+)
 from datetime import datetime
 import io
+from math import ceil
 
 load_dotenv()
 
@@ -100,6 +107,28 @@ def download_logs():
         )
     except Exception as e:
         flash(f'Error downloading logs: {e}', 'error')
+        return redirect(url_for('dashboard'))
+
+@app.route('/view_table')
+@login_required
+def view_table():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+    search = request.args.get('search', '')
+    
+    try:
+        total_records, records = get_paginated_logs(page, per_page, search)
+        total_pages = ceil(total_records / per_page)
+        
+        return render_template('table_viewer.html',
+                             records=records,
+                             current_page=page,
+                             total_pages=total_pages,
+                             total_records=total_records,
+                             per_page=per_page,
+                             search=search)
+    except Exception as e:
+        flash(f'Error loading table data: {e}', 'error')
         return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':

@@ -93,6 +93,17 @@
                         <a href="{{ url_for('download_logs') }}" class="btn btn-success">Download Logs</a>
                     </div>
                 </div>
+
+                <!-- View Table Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-table"></i> View Table</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>View and search through the database records.</p>
+                        <a href="{{ url_for('view_table') }}" class="btn btn-primary">View Table</a>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -101,28 +112,49 @@
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>About AUI Mod Helper</h2>
-            <div class="info-section">
-                <p><strong>Version:</strong> <span>2.0.0</span></p>
-                <p><strong>Created by:</strong> <span>Spooky</span></p>
-                <p><strong>Discord UID:</strong> <span>573023459907469324</span></p>
-                <p><strong>Discord Tag:</strong> <span>spooky6942</span></p>
-                <p><strong>Contact:</strong> <span>For any issues, please contact via Discord</span></p>
-                
-                <div class="links-section">
-                    <p><strong>Report Helper Tool:</strong> 
-                        <a href="https://aui-mod-report-helper-v1.vercel.app/" target="_blank">
-                            AUI Mod Report Helper
-                        </a>
-                    </p>
-                    <p><strong>GitHub:</strong> 
-                        <a href="https://github.com/sunnycreado" target="_blank">
-                            @sunnycreado
-                        </a>
-                    </p>
+            <div class="card-header">
+                <h2><i class="fas fa-info-circle"></i> About AUI Mod Helper</h2>
+            </div>
+            <div class="card-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Version</span>
+                        <span class="info-value">2.0.0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Created by</span>
+                        <span class="info-value">Spooky</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Discord UID</span>
+                        <span class="info-value">573023459907469324</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Discord Tag</span>
+                        <span class="info-value">spooky6942</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Contact</span>
+                        <span class="info-value">For any issues, please contact via Discord</span>
+                    </div>
                 </div>
-                
-                <p class="copyright">© 2024 AUI Mod Helper.</p>
+
+                <div class="links-section">
+                    <div class="info-item">
+                        <span class="info-label">Report Helper Tool</span>
+                        <a href="https://aui-mod-report-helper-v1.vercel.app/" target="_blank" class="info-link">
+                            AUI Mod Report Helper <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">GitHub</span>
+                        <a href="https://github.com/sunnycreado" target="_blank" class="info-link">
+                            @sunnycreado <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="copyright">© 2024 AUI Mod Helper.</div>
             </div>
         </div>
     </div>

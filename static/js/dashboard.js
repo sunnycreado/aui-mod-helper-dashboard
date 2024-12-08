@@ -34,4 +34,30 @@ document.querySelectorAll('.btn').forEach(button => {
         button.appendChild(ripple);
         setTimeout(() => ripple.remove(), 600);
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('infoModal');
+    const btn = document.getElementById('infoButton');
+    const closeBtn = document.querySelector('.close');
+
+    // Only show modal when info button is clicked
+    btn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+    });
+
+    // Close modal when X is clicked
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Ensure modal is hidden by default
+    modal.style.display = 'none';
 }); 
